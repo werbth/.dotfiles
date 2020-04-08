@@ -8,6 +8,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
 Plug 'altercation/vim-colors-solarized'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'ycm-core/YouCompleteMe'
+Plug 'tpope/vim-commentary'
 " Initialize plugin system
 call plug#end()
 

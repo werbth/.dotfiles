@@ -102,11 +102,15 @@ if [[ ! -d $ZSH_CACHE_DIR ]]; then
   mkdir $ZSH_CACHE_DIR
 fi
 
-alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+source $ZSH/oh-my-zsh.sh
 
+###########################
+# My config               #
+###########################
 export EDITOR=vim
 
-source $ZSH/oh-my-zsh.sh
+alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias notes="vim --cmd 'cd ~/Dropbox/notes'"
 
 # vi mode
 bindkey -v
