@@ -68,7 +68,11 @@ DISABLE_AUTO_UPDATE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+	git
+	kubectl
+	helm
+)
 
 
 # User configuration
@@ -109,9 +113,6 @@ source $ZSH/oh-my-zsh.sh
 ###########################
 export EDITOR=vim
 
-alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-alias notes="vim --cmd 'cd ~/Dropbox/notes'"
-
 # vi mode
 bindkey -v
 bindkey "^R" history-incremental-search-backward
@@ -119,3 +120,19 @@ bindkey "^R" history-incremental-search-backward
 # pure zsh theme
 autoload -U promptinit; promptinit
 prompt pure
+
+# aliases
+alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias notes="vim --cmd 'cd ~/Dropbox/notes'"
+alias t="todo.sh"
+
+# environment variables
+export M2_HOME=/opt/maven
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
+
+# Jira CLI completion
+eval "$(jira --completion-script-zsh)"
+
+# OpenShift completion
+source <(oc completion zsh)
+
