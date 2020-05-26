@@ -72,6 +72,8 @@ plugins=(
 	git
 	kubectl
 	helm
+	mvn
+	golang
 )
 
 
@@ -124,7 +126,7 @@ prompt pure
 # aliases
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias notes="vim --cmd 'cd ~/Dropbox/notes'"
-alias t="todo.sh"
+alias scripts="cd /home/werbth/Dropbox/work/entando/scripts"
 
 # environment variables
 export M2_HOME=/opt/maven
