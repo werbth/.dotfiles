@@ -132,8 +132,14 @@ alias scripts="cd /home/werbth/Dropbox/work/entando/scripts"
 export M2_HOME=/opt/maven
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 
+# PATH
+export PATH=~/.local/bin:$PATH
+export PATH=~/go/bin:$PATH
+
 # Jira CLI completion
 eval "$(jira --completion-script-zsh)"
+
+source /usr/share/nvm/init-nvm.sh
 
 # OpenShift completion
 source <(oc completion zsh)

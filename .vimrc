@@ -15,10 +15,16 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
 Plug 'sbdchd/neoformat'
-Plug 'janko/vim-test'
+Plug 'vim-test/vim-test'
 Plug 'vimwiki/vimwiki'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'nvie/vim-flake8'
+Plug 'pangloss/vim-javascript'
+Plug 'maralla/validator.vim'
+Plug 'ternjs/tern_for_vim', { 'do' : 'npm install' }
 " Initialize plugin system
 call plug#end()
 
@@ -44,13 +50,61 @@ colorscheme solarized
 set t_Cs=
 
 " Indentation
-autocmd FileType markdown setlocal shiftwidth=2 softtabstop=2 expandtab
-autocmd FileType yaml setlocal shiftwidth=2 softtabstop=2 expandtab
-autocmd FileType json setlocal shiftwidth=2 softtabstop=2 expandtab
-autocmd FileType xml setlocal shiftwidth=4 softtabstop=4 expandtab
-autocmd FileType java setlocal shiftwidth=4 softtabstop=4 expandtab
-autocmd FileType sh setlocal shiftwidth=4 softtabstop=4 expandtab
-autocmd FileType go setlocal shiftwidth=4 softtabstop=4 expandtab
+
+" Python
+au FileType python setlocal
+    \ tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+    \ textwidth=79 autoindent cc=+1
+
+" VimL Script
+au FileType vim setlocal
+    \ tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+    \ textwidth=120 autoindent cc=+1
+
+" Java
+au FileType java setlocal
+    \ tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+    \ textwidth=120 autoindent cc=+1
+
+" Markdown
+au FileType markdown setlocal
+    \ tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+    \ textwidth=80 autoindent cc=+1
+
+" yaml
+au FileType yaml setlocal
+    \ tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+
+" json
+au FileType json setlocal
+    \ tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+
+" xml
+au FileType xml setlocal
+    \ tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+
+" sh
+au FileType sh setlocal
+    \ tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+
+" go
+au FileType go setlocal
+    \ tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+
+" javascript
+au FileType javascript setlocal
+    \ tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+
+" html
+au BufNewFile,BufRead *.html setlocal
+    \ tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+
+" sql
+au BufNewFile,BufRead *.sql setlocal
+    \ tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+
+
+
 
 
 " Powerline
@@ -65,6 +119,16 @@ set wildignore+=*/target/*
 """""""""""""""""""""""""""""""""
 "       KEY MAPPINGS            "
 """""""""""""""""""""""""""""""""
+
+" Save
+noremap <Leader>w :update<CR>
+
+" Format current file
+execute "set <M-b>=\eb"
+noremap <M-b> :Neoformat<CR>
+
+" Open terminal
+noremap <C-c> :term<CR>
 
 " Clipboard
 noremap <Leader>y "+y
@@ -83,6 +147,16 @@ nmap <silent> <Leader>g :TestVisit<CR>
 " Execute the current open file and show output in a split buffer
 noremap <Leader>r :Dispatch %<CR>
 
+" Resize windows
+execute "set <M-h>=\eh"
+execute "set <M-l>=\el"
+execute "set <M-j>=\ej"
+execute "set <M-k>=\ek"
+map <M-h> :vertical resize -2<CR>
+map <M-l> :vertical resize +2<CR>
+map <M-j> :resize +2<CR>
+map <M-k> :resize -2<CR>
+
 """""""""""""""""""""""""""""""""
 "       PLUGINS                 "
 """""""""""""""""""""""""""""""""
@@ -100,8 +174,19 @@ let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 
 " fzf
-map <C-p> :Files<CR>
+map <C-p> :GFiles<CR>
 
 " Ycm
 map <Leader>gd :YcmCompleter GoToDefinition<CR>
+map <Leader>gr :YcmCompleter GoToReferences<CR>
+" Don't show YCM's preview window
+set completeopt-=preview
+let g:ycm_add_preview_to_completeopt = 0
 
+" Ultisnips
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-l>"
+let g:UltiSnipsJumpBackwardTrigger="<c-h>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
