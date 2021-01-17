@@ -45,7 +45,6 @@ set hlsearch
 
 " Colors
 set background=dark
-colorscheme solarized
 " Fix issue with spell check underline on terminal
 set t_Cs=
 
