@@ -1,6 +1,7 @@
 """"""""""""""""""""""""""""
 "       VIMRC              "
 """"""""""""""""""""""""""""
+let mapleader = ","
 
 " Specify a directory for plugins
 " - Avoid using standard Vim directory names like 'plugin'
@@ -25,6 +26,7 @@ Plug 'nvie/vim-flake8'
 Plug 'pangloss/vim-javascript'
 Plug 'maralla/validator.vim'
 Plug 'ternjs/tern_for_vim', { 'do' : 'npm install' }
+Plug 'vim-airline/vim-airline'
 " Initialize plugin system
 call plug#end()
 
@@ -32,7 +34,6 @@ call plug#end()
 set nocompatible
 filetype plugin on
 syntax on
-let mapleader=","
 set updatetime=100
 set splitright
 set nu
@@ -53,7 +54,7 @@ set t_Cs=
 " Python
 au FileType python setlocal
     \ tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-    \ textwidth=79 autoindent cc=+1
+    \ textwidth=120 autoindent cc=+1
 
 " VimL Script
 au FileType vim setlocal
@@ -101,9 +102,6 @@ au BufNewFile,BufRead *.html setlocal
 " sql
 au BufNewFile,BufRead *.sql setlocal
     \ tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-
-
-
 
 
 " Powerline
@@ -181,6 +179,7 @@ map <Leader>gr :YcmCompleter GoToReferences<CR>
 " Don't show YCM's preview window
 set completeopt-=preview
 let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_auto_hover=''
 
 " Ultisnips
 let g:UltiSnipsExpandTrigger="<c-j>"

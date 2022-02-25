@@ -24,7 +24,7 @@ ZSH_THEME="robbyrussell"
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-DISABLE_AUTO_UPDATE="true"
+# DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to automatically update without prompting.
 # DISABLE_UPDATE_PROMPT="true"
@@ -70,10 +70,7 @@ DISABLE_AUTO_UPDATE="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-	git
-	kubectl
-)
+plugins=(git vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -108,23 +105,27 @@ source $ZSH/oh-my-zsh.sh
 ###########################
 export EDITOR=vim
 
-# vi mode
-bindkey -v
-bindkey "^R" history-incremental-search-backward
-
-# aliases
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
 alias notes="vim --cmd 'cd ~/Dropbox/notes'"
 alias scripts="cd /home/werbth/Dropbox/work/entando/scripts"
 
-# environment variables
-export M2_HOME=/opt/maven
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
+# For Entando development
+export PATH=$PATH:/home/werbth/tools/apache-maven-3.8.2/bin
 
-# PATH
-export PATH=~/.local/bin:$PATH
-export PATH=~/go/bin:$PATH
+# Add bin directory to PATH
+export PATH=$PATH:/home/werbth/tools/bin
 
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+nvm use --silent v14.17.6
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# #ENTANDO-CLI-SIGN-d567d439#
+source /home/werbth/.entando/activate --quiet --force 2>/dev/null
+
+export PATH="/home/linuxbrew/.linuxbrew/opt/helm@2/bin:$PATH"

@@ -104,6 +104,12 @@ bindsym $mod+a focus parent
 # focus the child container
 bindsym $mod+z focus child
 
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the first scratchpad window
+bindsym $mod+minus scratchpad show
+
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1"
@@ -195,6 +201,7 @@ for_window [class="Skype"] move to workspace $ws10
 # Should open in floating mode
 for_window [title="Calculator$"] floating enable
 for_window [title="Calendar$"] floating enable
+for_window [title="Toggl Track$"] floating enable
 
 # Configure mode system to be able to lock, logout,suspend...
 set $Locker i3lock -c 000000 && sleep 1
@@ -215,24 +222,8 @@ mode "$mode_system" {
 
 bindsym $mod+Delete mode "$mode_system"
 
-## Manual management of external displays
-# Set the shortcuts and what they do
-set $mode_display Ext Screen (v) eDP-1 ON, (h) HDMI ON, (x) eDP-1 OFF, (y) HDMI OFF
-mode "$mode_display" {
-    bindsym v exec --no-startup-id xrandr --output eDP-1 --auto, mode "default"
-    bindsym h exec --no-startup-id xrandr --output HDMI-2 --auto, mode "default"
-    bindsym x exec --no-startup-id xrandr --output eDP-1 --auto --off, mode "default"
-    bindsym y exec --no-startup-id xrandr --output HDMI-2 --auto --off, mode "default"
-
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-# Declare here the shortcut to bring the display selection menu
-bindsym $mod+x mode "$mode_display"
-
 # Autostart
-exec dropbox
+exec dropbox start
 exec flameshot
 
 #################################
