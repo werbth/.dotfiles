@@ -26,7 +26,6 @@ Plug 'nvie/vim-flake8'
 Plug 'pangloss/vim-javascript'
 Plug 'maralla/validator.vim'
 Plug 'ternjs/tern_for_vim', { 'do' : 'npm install' }
-Plug 'vim-airline/vim-airline'
 " Initialize plugin system
 call plug#end()
 
