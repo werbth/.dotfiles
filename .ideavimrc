@@ -1,0 +1,4 @@
+nmap g] :action GotoImplementation<CR>
+
+" Plugins
+Plug 'tpope/vim-commentary'
