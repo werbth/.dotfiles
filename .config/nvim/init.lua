@@ -26,6 +26,7 @@ require('packer').startup(function(use)
     },
   }
 
+  use "rafamadriz/friendly-snippets"
   use { -- Autocompletion
     'hrsh7th/nvim-cmp',
     requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
@@ -514,12 +515,14 @@ dap.configurations.python = {
   {
     type = 'python';
     request = 'launch';
-    name = "Launch file 2";
+    name = "Launch file";
     program = "${file}";
     cwd = '${workspaceFolder}';
     pythonPath = 'python'
   },
 }
+
+require("luasnip.loaders.from_vscode").lazy_load()
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
