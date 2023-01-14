@@ -76,7 +76,12 @@ require('packer').startup(function(use)
   use 'tpope/vim-dadbod'
   use 'kristijanhusak/vim-dadbod-ui'
   use 'kristijanhusak/vim-dadbod-completion'
+
   use 'junegunn/fzf.vim'
+  use 'romgrk/todoist.nvim'
+
+  -- Java
+  use 'mfussenegger/nvim-jdtls'
 
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
@@ -511,6 +516,10 @@ dap.adapters.python = {
   command = os.getenv('HOME') .. '/.virtualenvs/debugpy/bin/python';
   args = { '-m', 'debugpy.adapter' };
 }
+dap.adapters.node = {
+  type = 'executable';
+  command = os.getenv('HOME') .. '/.local/share/nvim/mason/bin/node-debug2-adapter';
+}
 dap.configurations.python = {
   {
     type = 'python';
@@ -519,6 +528,29 @@ dap.configurations.python = {
     program = "${file}";
     cwd = '${workspaceFolder}';
     pythonPath = 'python'
+  },
+}
+-- dap.configurations.javascript = {
+--   {
+--     type = 'node';
+--     request = 'launch';
+--     name = 'Debug Serverless Offline';
+--     cwd = '${workspaceFolder}';
+--     runtimeExecutable = "npm";
+--     runtimeArgs = { "run", "debug" };
+--     sourceMaps = true
+--   },
+-- }
+dap.configurations.javascript = {
+  {
+    type = 'node';
+    request = 'attach';
+    name = 'Debug Serverless Offline';
+    cwd = '${workspaceFolder}';
+    webRoot = '${workspaceFolder}';
+    sourceMaps = true;
+    restart = true;
+    port = 9229
   },
 }
 
@@ -564,6 +596,7 @@ cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'vim-dadbod-completion' },
   },
 }
 
