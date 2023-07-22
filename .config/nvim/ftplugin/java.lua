@@ -6,6 +6,17 @@ local jdtls = require('jdtls')
 local root_markers = {'gradlew', 'mvnw', '.git'}
 local root_dir = require('jdtls.setup').find_root(root_markers)
 
+local jdk_17_path = '/usr/lib/jvm/java-17-openjdk'
+local jdk_11_path = '/usr/lib/jvm/java-11-openjdk'
+local jdtls_home = '/usr/share/java/jdtls'
+local jdtls_config = '/config_linux'
+if vim.loop.os_uname().sysname == 'Darwin' then
+  jdk_17_path = home .. '/.asdf/installs/java/corretto-17.0.8.7.1'
+  jdk_11_path = home .. '/.asdf/installs/java/corretto-11.0.20.8.1'
+  jdtls_home = '/opt/homebrew/Cellar/jdtls/1.25.0/libexec'
+  jdtls_config = '/config_mac'
+end
+
 -- eclipse.jdt.ls stores project specific data within a folder. If you are working
 -- with multiple different projects, each project must use a dedicated data directory.
 -- This variable is used to configure eclipse to use the directory name of the
@@ -41,7 +52,7 @@ local on_attach = function(client, bufnr)
   nnoremap('<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts, "Format file")
 
   -- Java extensions provided by jdtls
-  nnoremap("<A-o>", jdtls.organize_imports, bufopts, "Organize imports")
+  nnoremap("<leader>o", jdtls.organize_imports, bufopts, "Organize imports")
   nnoremap("<leader>ev", jdtls.extract_variable, bufopts, "Extract variable")
   nnoremap("<leader>ec", jdtls.extract_constant, bufopts, "Extract constant")
   vim.keymap.set('v', "<space>em", [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]],
@@ -115,15 +126,11 @@ local config = {
         runtimes = {
           {
             name = "JavaSE-17",
-            path = "/usr/lib/jvm/java-17-openjdk",
+            path = jdk_17_path,
           },
           {
             name = "JavaSE-11",
-            path = "/usr/lib/jvm/java-11-openjdk",
-          },
-          {
-            name = "JavaSE-1.8",
-            path = "/usr/lib/jvm/java-8-openjdk",
+            path = jdk_11_path,
           },
         }
       }
@@ -135,7 +142,7 @@ local config = {
   -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
   -- for the full list of options
   cmd = {
-    "/usr/lib/jvm/java-17-openjdk/bin/java",
+    jdk_17_path .. '/bin/java',
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
@@ -150,11 +157,11 @@ local config = {
 
     -- The jar file is located where jdtls was installed. This will need to be updated
     -- to the location where you installed jdtls
-    '-jar', vim.fn.glob('/usr/share/java/jdtls/plugins/org.eclipse.equinox.launcher_*.jar'),
+    '-jar', vim.fn.glob(jdtls_home .. '/plugins/org.eclipse.equinox.launcher_*.jar'),
 
     -- The configuration for jdtls is also placed where jdtls was installed. This will
     -- need to be updated depending on your environment
-    '-configuration', '/usr/share/java/jdtls/config_linux',
+    '-configuration', jdtls_home .. jdtls_config,
 
     -- Use the workspace_folder defined above to store data for this project
     '-data', workspace_folder,
