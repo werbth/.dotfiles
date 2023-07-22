@@ -109,5 +109,15 @@ source $ZSH/oh-my-zsh.sh
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 export PATH=$PATH:/home/werbth/.local/bin
+export PATH=$PATH:/home/werbth/Dropbox/scripts
 
 source /usr/share/nvm/init-nvm.sh
+
+alias notes='cd ~/Dropbox/notes; vim'
+alias mw='cd ~/Dropbox/work/masterworks/'
+
+alias todo='todoist-cli'
+alias today="todo list -f '(overdue | today)'"
+
+source "/usr/share/todoist-cli/todoist_functions.sh"
+
