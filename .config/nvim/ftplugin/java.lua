@@ -23,47 +23,79 @@ end
 -- current project found using the root_marker as the folder for project specific data.
 local workspace_folder = home .. "/.local/share/eclipse/" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
 
--- Helper function for creating keymaps
-function nnoremap(rhs, lhs, bufopts, desc)
-  bufopts.desc = desc
-  vim.keymap.set("n", rhs, lhs, bufopts)
-end
-
 -- The on_attach function is used to set key maps after the language server
 -- attaches to the current buffer
 local on_attach = function(client, bufnr)
-  -- Regular Neovim LSP client keymappings
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  nnoremap('gD', vim.lsp.buf.declaration, bufopts, "Go to declaration")
-  nnoremap('gd', vim.lsp.buf.definition, bufopts, "Go to definition")
-  nnoremap('gi', vim.lsp.buf.implementation, bufopts, "Go to implementation")
-  nnoremap('K', vim.lsp.buf.hover, bufopts, "Hover text")
-  nnoremap('<C-k>', vim.lsp.buf.signature_help, bufopts, "Show signature")
-  nnoremap('<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts, "Add workspace folder")
-  nnoremap('<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts, "Remove workspace folder")
-  nnoremap('<leader>wl', function()
+  local nmap = function(keys, func, desc)
+    if desc then
+      desc = 'LSP: ' .. desc
+    end
+
+    vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+  end
+
+  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+
+  nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+  nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+  nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+  nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+  nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+  nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+
+  -- See `:help K` for why this keymap
+  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+
+  -- Lesser used LSP functionality
+  nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+  nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
+  nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
+  nmap('<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts, "List workspace folders")
-  nnoremap('<leader>D', vim.lsp.buf.type_definition, bufopts, "Go to type definition")
-  nnoremap('<leader>rn', vim.lsp.buf.rename, bufopts, "Rename")
-  nnoremap('<leader>ca', vim.lsp.buf.code_action, bufopts, "Code actions")
-  vim.keymap.set('v', "<leader>ca", "<ESC><CMD>lua vim.lsp.buf.range_code_action()<CR>",
+  end, '[W]orkspace [L]ist Folders')
+
+  -- Create a command `:Format` local to the LSP buffer
+  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+    vim.lsp.buf.format()
+  end, { desc = 'Format current buffer with LSP' })
+  -- Regular Neovim LSP client keymappings
+  vim.keymap.set('v', "<leader>ca", "<ESC><CMD>lua vim.lsp.buf.code_action()<CR>",
     { noremap=true, silent=true, buffer=bufnr, desc = "Code actions" })
-  nnoremap('<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts, "Format file")
 
   -- Java extensions provided by jdtls
-  nnoremap("<leader>o", jdtls.organize_imports, bufopts, "Organize imports")
-  nnoremap("<leader>ev", jdtls.extract_variable, bufopts, "Extract variable")
-  nnoremap("<leader>ec", jdtls.extract_constant, bufopts, "Extract constant")
-  vim.keymap.set('v', "<space>em", [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]],
-    { noremap=true, silent=true, buffer=bufnr, desc = "Extract method" })
+  nmap('<leader>o', jdtls.organize_imports, 'Organize imports')
+  nmap('<leader>ev', jdtls.extract_variable, 'Extract variable')
+  nmap('<leader>ec', jdtls.extract_constant, 'Extract constant')
+  vim.keymap.set('v', '<leader>em', [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]],
+    { noremap=true, silent=true, buffer=bufnr, desc = 'Extract method' })
+  nmap('<leader>gt', require('jdtls.tests').generate, 'Generate Tests')
+  nmap('<leader>gs', require('jdtls.tests').goto_subjects, 'Go to test or subject')
+  nmap('<leader>rc', require('jdtls').test_class, 'Run test class')
+  nmap('<leader>rm', require('jdtls').test_nearest_method, 'Run test method')
+
+
+  -- With `hotcodereplace = 'auto' the debug adapter will try to apply code changes
+  -- you make during a debug session immediately.
+  -- Remove the option if you do not want that.
+  require('jdtls').setup_dap({ hotcodereplace = 'auto' })
 end
+
+local bundles = {
+  vim.fn.glob(home .. '/.local/share/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar'),
+}
+
+vim.list_extend(bundles, vim.split(vim.fn.glob(home .. "/.local/share/vscode-java-test/server/*.jar", 1), "\n"))
 
 local config = {
   flags = {
     debounce_text_changes = 80,
   },
   on_attach = on_attach,  -- We pass our on_attach keybindings to the configuration map
+  init_options = {
+    bundles = bundles
+  },
   root_dir = root_dir, -- Set the root directory to our found root_marker
   -- Here you can configure eclipse.jdt.ls specific settings
   -- These are defined by the eclipse.jdt.ls project and will be passed to eclipse when starting.
@@ -72,6 +104,7 @@ local config = {
   settings = {
     java = {
       format = {
+        enabled = true,
         settings = {
           -- Use Google Java style guidelines for formatting
           -- To use, make sure to download the file from https://github.com/google/styleguide/blob/gh-pages/eclipse-java-google-style.xml
