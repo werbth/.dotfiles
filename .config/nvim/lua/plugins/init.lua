@@ -13,6 +13,7 @@ return {
   'kristijanhusak/vim-dadbod-ui',
   'kristijanhusak/vim-dadbod-completion',
 
+  'mfussenegger/nvim-dap',
   'mfussenegger/nvim-jdtls',
   'mfussenegger/nvim-dap-python',
 
@@ -145,14 +146,20 @@ return {
     config = function() require('config.nvim-treesitter') end,
   },
   {
-    'mfussenegger/nvim-dap',
-    config = function() require('config.nvim-dap') end,
-  },
-  {
     'nvim-tree/nvim-tree.lua',
     dependencies = {
       'nvim-tree/nvim-web-devicons'
     },
     config = function() require('config.nvim-tree') end,
+  },
+  {
+    "jackMort/ChatGPT.nvim",
+      event = "VeryLazy",
+      config = function()
+        require("chatgpt").setup()
+      end,
+      dependencies = {
+        "MunifTanjim/nui.nvim"
+      }
   },
 }

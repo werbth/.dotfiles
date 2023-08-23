@@ -7,6 +7,7 @@ vim.o.hlsearch = false
 
 -- Make line numbers default
 vim.wo.number = true
+vim.wo.relativenumber = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
@@ -55,3 +56,4 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 vim.g.db_ui_execute_on_save = 0
 vim.g.db_ui_save_location = '~/Dropbox/db_ui/'
 vim.g.db_ui_tmp_query_location = '~/queries'
+

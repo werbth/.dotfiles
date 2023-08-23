@@ -25,6 +25,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup('plugins')
 require('core')
+require('config.nvim-dap')
 require('keymappings')
 require('lsp')
 

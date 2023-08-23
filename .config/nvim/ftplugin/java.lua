@@ -74,6 +74,7 @@ local on_attach = function(client, bufnr)
   nmap('<leader>gs', require('jdtls.tests').goto_subjects, 'Go to test or subject')
   nmap('<leader>rc', require('jdtls').test_class, 'Run test class')
   nmap('<leader>rm', require('jdtls').test_nearest_method, 'Run test method')
+  nmap('<leader>fm', require('jdtls.dap').setup_dap_main_class_configs, 'Fetch main configs')
 
 
   -- With `hotcodereplace = 'auto' the debug adapter will try to apply code changes
