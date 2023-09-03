@@ -8,13 +8,22 @@ local root_dir = require('jdtls.setup').find_root(root_markers)
 
 local jdk_17_path = '/usr/lib/jvm/java-17-openjdk'
 local jdk_11_path = '/usr/lib/jvm/java-11-openjdk'
+local jdk_8_path = '/usr/lib/jvm/java-8-openjdk'
 local jdtls_home = '/usr/share/java/jdtls'
 local jdtls_config = '/config_linux'
 if vim.loop.os_uname().sysname == 'Darwin' then
   jdk_17_path = home .. '/.asdf/installs/java/corretto-17.0.8.7.1'
   jdk_11_path = home .. '/.asdf/installs/java/corretto-11.0.20.8.1'
+  jdk_8_path = home .. '/.asdf/installs/java/corretto-8.352.08.1'
   jdtls_home = '/opt/homebrew/Cellar/jdtls/1.25.0/libexec'
   jdtls_config = '/config_mac'
+end
+if vim.loop.os_uname().sysname == 'Windows_NT' then
+  jdk_17_path = 'C:\\java\\correto\\jdk17.0.8_7'
+  jdk_11_path = 'C:\\java\\correto\\jdk11.0.20_9'
+  jdk_8_path = 'C:\\Program Files\\Amazon Corretto\\jdk1.8.0_372'
+  jdtls_home = 'C:\\tools\\jdtls'
+  jdtls_config = '/config_win'
 end
 
 -- eclipse.jdt.ls stores project specific data within a folder. If you are working
@@ -165,6 +174,10 @@ local config = {
           {
             name = "JavaSE-11",
             path = jdk_11_path,
+          },
+          {
+            name = "JavaSE-1.8",
+            path = jdk_8_path
           },
         }
       }
