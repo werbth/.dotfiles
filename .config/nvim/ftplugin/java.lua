@@ -19,8 +19,8 @@ if vim.loop.os_uname().sysname == 'Darwin' then
   jdtls_config = '/config_mac'
 end
 if vim.loop.os_uname().sysname == 'Windows_NT' then
-  jdk_17_path = 'C:\\java\\correto\\jdk17.0.8_7'
-  jdk_11_path = 'C:\\java\\correto\\jdk11.0.20_9'
+  jdk_17_path = 'C:\\java\\corretto\\jdk17.0.8_7'
+  jdk_11_path = 'C:\\java\\corretto\\jdk11.0.20_9'
   jdk_8_path = 'C:\\Program Files\\Amazon Corretto\\jdk1.8.0_372'
   jdtls_home = 'C:\\tools\\jdtls'
   jdtls_config = '/config_win'
