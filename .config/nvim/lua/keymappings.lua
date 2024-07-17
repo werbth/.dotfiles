@@ -44,9 +44,6 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnos
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
--- Databases
-vim.keymap.set('n', '<C-m>', '<cmd>DBUIToggle<CR>', { desc = 'DBUIToggle' })
-
 -- nvim-dap
 vim.keymap.set('n', '<leader>bb', require('dap').toggle_breakpoint, { desc = 'Set breakpoint' })
 vim.keymap.set('n', '<leader>bc', "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>", { desc = 'Set conditional breakpoint' })
@@ -59,6 +56,7 @@ require('which-key').register({
   },
 }, { prefix = '<leader>' })
 
+vim.keymap.set('n', '<leader>du', require('dapui').toggle, { desc = 'DAP UI' })
 vim.keymap.set('n', '<leader>dc', require('dap').continue, { desc = 'Continue' })
 vim.keymap.set('n', '<leader>dj', require('dap').step_over, { desc = 'Step over' })
 vim.keymap.set('n', '<leader>dk', require('dap').step_into, { desc = 'Step into' })

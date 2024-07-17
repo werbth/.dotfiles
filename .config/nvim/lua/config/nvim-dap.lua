@@ -16,3 +16,5 @@ table.insert(dap.configurations.python,
   }
 )
 
+-- DAP UI configuration
+require("dapui").setup()
