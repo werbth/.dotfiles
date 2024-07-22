@@ -28,11 +28,11 @@ return {
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
-
-      -- Additional lua configuration, makes nvim stuff amazing!
-      'folke/neodev.nvim',
     },
   },
+
+  -- Additional lua configuration, makes nvim stuff amazing!
+  'folke/neodev.nvim',
 
   {
     -- Autocompletion
@@ -106,9 +106,6 @@ return {
     },
   },
 
-  -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
-
   -- Fuzzy Finder (files, lsp, etc)
   {
     'nvim-telescope/telescope.nvim',
@@ -171,19 +168,21 @@ return {
     -- See Commands section for default commands if you want to lazy load on them
   },
   {
-    "kndndrj/nvim-dbee",
+    'kristijanhusak/vim-dadbod-ui',
     dependencies = {
-      "MunifTanjim/nui.nvim",
+      { 'tpope/vim-dadbod', lazy = true },
+      { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true }, -- Optional
     },
-    build = function()
-      -- Install tries to automatically detect the install method.
-      -- if it fails, try calling it with one of these parameters:
-      --    "curl", "wget", "bitsadmin", "go"
-      require("dbee").install()
+    cmd = {
+      'DBUI',
+      'DBUIToggle',
+      'DBUIAddConnection',
+      'DBUIFindBuffer',
+    },
+    init = function()
+      -- Your DBUI configuration
+      vim.g.db_ui_use_nerd_fonts = 1
     end,
-    config = function()
-      require("dbee").setup(--[[optional config]])
-    end,
-  },
+  }
 }
 

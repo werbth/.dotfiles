@@ -63,7 +63,7 @@ vim.keymap.set('n', '<leader>dk', require('dap').step_into, { desc = 'Step into'
 vim.keymap.set('n', '<leader>do', require('dap').step_out, { desc = 'Step out' })
 vim.keymap.set('n', '<leader>dd', require('dap').disconnect, { desc = 'Disconnect' })
 vim.keymap.set('n', '<leader>dt', require('dap').terminate, { desc = 'Terminate' })
-vim.keymap.set('n', '<leader>dr', require('dap').repl.toggle, { desc = 'Open REPL' })
+vim.keymap.set('n', '<leader>dr', require('dap').repl.toggle, { desc = 'Toggle REPL' })
 vim.keymap.set('n', '<leader>dl', require('dap').run_last, { desc = 'Run last' })
 vim.keymap.set('n', '<leader>di', function() require('dap.ui.widgets').hover() end, { desc = 'Variables' })
 vim.keymap.set('n', '<leader>d?', function() local widgets=require('dap.ui.widgets');widgets.centered_float(widgets.scopes) end, { desc = 'Scopes' })
@@ -74,3 +74,10 @@ require('which-key').register({
 }, { prefix = '<leader>' })
 
 vim.keymap.set('n', "<C-n>", '<cmd>NvimTreeToggle<cr>', { desc = 'Toggle NvimTree' })
+
+-- Database
+vim.keymap.set('n', '<leader>db', '<cmd>DBUIToggle<CR>', { desc = 'DBUIToggle' })
+
+-- GitHub Copilot
+vim.keymap.set('n', '<leader>cc', require('CopilotChat').toggle, { desc = 'Toggle Copilot Chat' })
+

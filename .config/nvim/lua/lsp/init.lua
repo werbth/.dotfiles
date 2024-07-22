@@ -60,6 +60,8 @@ local servers = {
         pycodestyle = {
           maxLineLength = 120
         },
+        rope_autoimport = { enabled = true },
+        isort = { enabled = true },
       },
     },
   },
