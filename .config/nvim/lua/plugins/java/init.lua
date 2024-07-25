@@ -13,7 +13,12 @@ return {
                   runtimes = {
                     {
                       name = "JavaSE-21",
-                      path = "/Users/werbth/.asdf/installs/java/corretto-21.0.2.13.1",
+                      path = "/Users/um08/.asdf/installs/java/corretto-21.0.3.9.1",
+                      default = true,
+                    },
+                    {
+                      name = "JavaSE-17",
+                      path = "/Users/um08/.asdf/installs/java/corretto-17.0.10.7.1",
                       default = true,
                     },
                   },
@@ -26,6 +31,10 @@ return {
           jdtls = function()
             require("java").setup({
               -- your nvim-java configuration goes here
+              jdk = {
+                -- disable installing jdk
+                auto_install = false,
+              },
             })
           end,
         },
