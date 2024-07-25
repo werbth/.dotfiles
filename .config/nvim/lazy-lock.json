@@ -20,6 +20,7 @@
   "grug-far.nvim": { "branch": "main", "commit": "529b561143f9350ce41cd44f05f103c7f277cdab" },
   "headlines.nvim": { "branch": "master", "commit": "618ef1b2502c565c82254ef7d5b04402194d9ce3" },
   "indent-blankline.nvim": { "branch": "master", "commit": "65e20ab94a26d0e14acac5049b8641336819dfc7" },
+  "kulala.nvim": { "branch": "main", "commit": "0bcfb897c691fb84841758bbb6e00046e97ee238" },
   "lazy.nvim": { "branch": "main", "commit": "839f9e78e78dc935b1188fb16583365991739c51" },
   "lazydev.nvim": { "branch": "main", "commit": "399299ca570aa82c13ee4fb1bd1304ce6baf7f05" },
   "lua-async-await": { "branch": "main", "commit": "652d94df34e97abe2d4a689edbc4270e7ead1a98" },
