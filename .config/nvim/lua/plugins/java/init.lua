@@ -13,12 +13,12 @@ return {
                   runtimes = {
                     {
                       name = "JavaSE-21",
-                      path = "/Users/um08/.asdf/installs/java/corretto-21.0.3.9.1",
+                      path = os.getenv("HOME") .. "/.asdf/installs/java/corretto-21.0.3.9.1",
                       default = true,
                     },
                     {
                       name = "JavaSE-17",
-                      path = "/Users/um08/.asdf/installs/java/corretto-17.0.10.7.1",
+                      path = os.getenv("HOME") .. "/.asdf/installs/java/corretto-17.0.10.7.1",
                       default = true,
                     },
                   },
