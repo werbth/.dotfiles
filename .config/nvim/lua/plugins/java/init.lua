@@ -19,7 +19,7 @@ return {
                     {
                       name = "JavaSE-17",
                       path = os.getenv("HOME") .. "/.asdf/installs/java/corretto-17.0.10.7.1",
-                      default = true,
+                      default = false,
                     },
                   },
                 },
