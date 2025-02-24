@@ -1,7 +1,17 @@
+let mapleader = "\<Space>"
+
+" Key mappings
+nmap <leader>, :action RecentFiles<CR>
+nmap <leader>ff :action GotoFile<CR>
+nmap <leader>ss :action GotoSymbol<CR>
+nmap <leader>bb :b#<CR>
+
 nmap g] :action GotoImplementation<CR>
 
 set ignorecase
 set smartcase
+set visualbell
+set is
 
 " Plugins
 Plug 'tpope/vim-commentary'
