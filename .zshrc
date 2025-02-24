@@ -102,7 +102,21 @@ source $ZSH/oh-my-zsh.sh
 alias ecs="cd ~/Dropbox/work/masterworks/scripts/ecs"
 alias config='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
 
+alias vim=nvim
+
+export PATH=$PATH:/Applications/IntelliJ\ IDEA.app/Contents/MacOS
+
 # NVM
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/werbth/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
+
+export LIQUIBASE_HOME="/opt/homebrew/opt/liquibase/libexec"
+
+export ASDF_DATA_DIR="$HOME/.asdf"
+export PATH="$ASDF_DATA_DIR/shims:$PATH"
