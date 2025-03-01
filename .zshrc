@@ -120,3 +120,5 @@ export LIQUIBASE_HOME="/opt/homebrew/opt/liquibase/libexec"
 
 export ASDF_DATA_DIR="$HOME/.asdf"
 export PATH="$ASDF_DATA_DIR/shims:$PATH"
+
+export JAVA_HOME="$HOME/.asdf/installs/java/corretto-21.0.3.9.1"
